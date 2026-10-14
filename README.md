@@ -1,7 +1,10 @@
 # SportSee — Dashboard de sport
 
-Projet React en JavaScript et JSX, basé sur le template React Router en mode
-Framework, avec Vite et Tailwind CSS. Le rendu côté serveur du template est conservé.
+Application en JavaScript et JSX, avec React 19 et React Router 8 en mode Framework,
+Vite et Tailwind CSS. Le rendu côté serveur est activé.
+
+La route `/` affiche une page blanche, point de départ du dashboard SportSee.
+Les composants, logos, liens, métadonnées et polices de démonstration ont été retirés.
 
 ## Installation et lancement
 
@@ -24,10 +27,9 @@ npm start
 
 ## Organisation
 
-- `app/root.jsx` : document HTML, layout principal et gestion des erreurs.
+- `app/root.jsx` : document HTML et layout principal.
 - `app/routes.js` : configuration des routes.
-- `app/routes/home.jsx` : page d'accueil du template.
-- `app/welcome/welcome.jsx` : composant d'accueil du template.
+- `app/routes/home.jsx` : page d'accueil vide.
 - `app/app.css` : styles globaux et Tailwind CSS.
 - `react-router.config.js` : configuration de React Router.
 - `vite.config.js` : plugins et alias `~/` vers le dossier `app/`.
@@ -41,6 +43,17 @@ React Router génère automatiquement des fichiers de types dans `.react-router/
 au lancement du serveur de développement, même pour une application JavaScript.
 Le `jsconfig.json` permet à VS Code de résoudre leurs imports vers les fichiers JSX
 grâce à `rootDirs`. Ces fichiers générés sont ignorés par Git et gérés par React Router.
+
+## Conventions de développement
+
+- JavaScript moderne conforme à ECMAScript 2026, avec des modules ES et des fichiers JSX.
+- Uniquement `const` et `let` pour les déclarations de variables.
+- Composants fonctionnels et hooks compatibles avec React 19.
+- Séparer les responsabilités : composants et layouts pour l'affichage, hooks
+  pour la logique React, services pour les accès externes, mapping pour adapter
+  les données et utils pour les fonctions utilitaires indépendantes.
+- Ajouter ces modules au fur et à mesure des fonctionnalités, avec une logique
+  métier indépendante de l'interface et des appels à l'API.
 
 ## API SportSee
 

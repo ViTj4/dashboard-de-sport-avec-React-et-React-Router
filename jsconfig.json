@@ -5,7 +5,7 @@
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "target": "ES2022",
+    "target": "ESNext",
     "noEmit": true,
     "skipLibCheck": true,
     "rootDirs": [".", "./.react-router/types"],
