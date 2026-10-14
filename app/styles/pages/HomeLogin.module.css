@@ -1,0 +1,27 @@
+.card {
+  box-sizing: border-box;
+  width: 398px;
+  max-width: 100%;
+  padding: 40px 40px 80px;
+  border-radius: 20px;
+  background-color: var(--Tokens-Surface-White, #fff);
+}
+
+.title {
+  margin: 0 0 40px;
+  color: var(--Tokens-Surface-action, #0b23f4);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34px;
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: 32px 24px 48px;
+  }
+
+  .title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}

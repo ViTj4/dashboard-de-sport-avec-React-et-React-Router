@@ -1,0 +1,97 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 5px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+.icon {
+  display: block;
+  flex: 0 0 19px;
+  width: 19px;
+  height: 21px;
+  overflow: visible;
+}
+
+.wordmark {
+  display: block;
+  flex: 0 0 133px;
+  width: 133px;
+  height: 24px;
+}
+
+.firstBar {
+  --bar-travel: 5px;
+}
+
+.secondBar {
+  --bar-travel: 7px;
+}
+
+.thirdBar {
+  --bar-travel: 3px;
+}
+
+.fourthBar {
+  --bar-travel: 6px;
+}
+
+.fifthBar {
+  --bar-travel: 4px;
+}
+
+.animated .movingBar,
+.animated .blueBar {
+  animation: moveBar 3002ms cubic-bezier(0.7, -0.4, 0.4, 1.4) infinite;
+}
+
+.animated .blueBar {
+  animation-name: moveBlueBar;
+}
+
+/* One cycle: 1ms delay, 2000ms to state 2, 1ms delay, 1000ms back.
+   The curve applies separately to each translation, including its overshoot. */
+@keyframes moveBar {
+  0%,
+  0.033311% {
+    transform: translateY(0);
+  }
+
+  66.655563%,
+  66.688874% {
+    transform: translateY(var(--bar-travel));
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* This underlying bar also changes geometry in the supplied state 2 SVG. */
+@keyframes moveBlueBar {
+  0%,
+  0.033311% {
+    y: 5.65625px;
+    height: 15px;
+  }
+
+  66.655563%,
+  66.688874% {
+    y: 7.59375px;
+    height: 13px;
+  }
+
+  100% {
+    y: 5.65625px;
+    height: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated .movingBar,
+  .animated .blueBar {
+    animation: none;
+  }
+}

@@ -6,7 +6,22 @@ import {
   ScrollRestoration,
 } from "react-router";
 
-import "./app.css";
+import iconLogo from "~/assets/logos/Icon_logo_default.svg";
+import "~/styles/global.css";
+
+export const links = () => [
+  { rel: "icon", type: "image/svg+xml", href: iconLogo },
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+  },
+];
 
 export function Layout({ children }) {
   return (

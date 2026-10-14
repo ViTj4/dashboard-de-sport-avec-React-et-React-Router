@@ -1,0 +1,49 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 24px;
+  color: var(--Tokens-Text-Primary, #111);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+
+.fields {
+  display: grid;
+  gap: 24px;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.forgotPassword {
+  align-self: flex-start;
+  margin-top: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--Tokens-Text-Primary, #111);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.forgotPassword:hover {
+  color: var(--Tokens-Surface-action, #0b23f4);
+  text-decoration: underline;
+}
+
+.forgotPassword:focus-visible {
+  outline: 2px solid var(--Tokens-Border-Primary, #0b23f4);
+  outline-offset: 4px;
+}

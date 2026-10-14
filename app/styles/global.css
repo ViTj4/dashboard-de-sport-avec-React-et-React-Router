@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background-color: #fff;
+  color-scheme: light;
+}
+
+body {
+  color: var(--Tokens-Text-Primary, #111);
+  font-family: var(--font-family-body, "Inter", sans-serif);
+  font-weight: 400;
+}

@@ -3,12 +3,11 @@
 Application en JavaScript et JSX, avec React 19 et React Router 8 en mode Framework,
 Vite et Tailwind CSS. Le rendu côté serveur est activé.
 
-La route `/` affiche une page blanche, point de départ du dashboard SportSee.
-Les composants, logos, liens, métadonnées et polices de démonstration ont été retirés.
+La route `/` affiche la page d'accueil et de connexion `HomeLogin`.
 
 ## Installation et lancement
 
-Avec Node.js 22.22 ou une version plus récente compatible avec les dépendances :
+Avec Node.js 22.22 ou une version plus récente compatible avec les dépendances: 
 
 ```sh
 npm ci
@@ -27,36 +26,24 @@ npm start
 
 ## Organisation
 
-- `app/root.jsx` : document HTML et layout principal.
-- `app/routes.js` : configuration des routes.
-- `app/routes/home.jsx` : page d'accueil vide.
-- `app/app.css` : styles globaux et Tailwind CSS.
-- `react-router.config.js` : configuration de React Router.
-- `vite.config.js` : plugins et alias `~/` vers le dossier `app/`.
-- `jsconfig.json` : résolution des modules JavaScript/JSX et de l'alias `~/`
+- `app/root.jsx`       : document HTML et layout principal.
+- `app/routes.js`      : configuration des routes.
+- `app/routes/home.jsx`: route d'accueil qui rend `HomeLogin`.
+- `app/pages/` : pages de l'application.
+- `app/layouts/`   : mises en page partagées.
+- `app/components/`: composants d'interface réutilisables.
+- `app/assets/`           : logos et images.
+- `app/styles/`           : styles globaux, tokens et CSS Modules des composants, layouts et pages.
+- `react-router.config.js`: configuration de React Router.
+- `vite.config.js`        : plugins et alias `~/` vers le dossier `app/`.
+- `jsconfig.json`         : résolution des modules JavaScript/JSX et de l'alias `~/`
   dans l'éditeur.
 
-Les composants utilisent l'extension `.jsx` et les configurations l'extension `.js`.
-Le projet ne contient plus de configuration TypeScript ni de script `typecheck`.
-
-React Router génère automatiquement des fichiers de types dans `.react-router/types/`
-au lancement du serveur de développement, même pour une application JavaScript.
-Le `jsconfig.json` permet à VS Code de résoudre leurs imports vers les fichiers JSX
-grâce à `rootDirs`. Ces fichiers générés sont ignorés par Git et gérés par React Router.
-
-## Conventions de développement
-
-- JavaScript moderne conforme à ECMAScript 2026, avec des modules ES et des fichiers JSX.
-- Uniquement `const` et `let` pour les déclarations de variables.
-- Composants fonctionnels et hooks compatibles avec React 19.
-- Séparer les responsabilités : composants et layouts pour l'affichage, hooks
-  pour la logique React, services pour les accès externes, mapping pour adapter
-  les données et utils pour les fonctions utilitaires indépendantes.
-- Ajouter ces modules au fur et à mesure des fonctionnalités, avec une logique
-  métier indépendante de l'interface et des appels à l'API.
+Le dossier `.react-router/` est généré automatiquement par React Router et ignoré par Git.
 
 ## API SportSee
 
 L'API Node.js / Express se trouve dans le dossier voisin `P6JS` et fonctionne
-via Docker à l'adresse http://localhost:8000. La connexion du front-end à cette
-API sera réalisée dans une prochaine étape.
+via Docker à l'adresse http://localhost:8000.
+
+Le formulaire de connexion n'est pas encore connecté à l'API.

@@ -1,0 +1,80 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: 10px;
+  border: 0;
+  border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 1;
+  cursor: pointer;
+  transition:
+    background-color 300ms ease-in,
+    border-color 300ms ease-in,
+    color 300ms ease-in;
+}
+
+.primary {
+  width: 318px;
+  max-width: 100%;
+  height: 51px;
+  padding: 16px 40px;
+  background-color: var(--Tokens-Surface-action, #0b23f4);
+  color: var(--Tokens-Surface-White, #fff);
+}
+
+.navigation {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--Tokens-Border-Secondary, #717171);
+  background-color: var(--Tokens-Surface-White, #fff);
+  color: var(--Tokens-Border-Secondary, #717171);
+}
+
+.navigationContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transform: rotate(90deg);
+}
+
+.navigationContent > svg,
+.navigationContent > img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.button:is(:hover, :focus):not(:disabled) {
+  background-color: var(--Tokens-Surface-action-hover, #5465f7);
+}
+
+.navigation:is(:hover, :focus):not(:disabled) {
+  border-color: var(--Tokens-Border-Primary, #0b23f4);
+  color: var(--Tokens-Surface-White, #fff);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--Tokens-Border-Primary, #0b23f4);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  background-color: var(--Tokens-Surface-Background, #e7e7e7);
+  color: var(--Tokens-Border-Secondary, #717171);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

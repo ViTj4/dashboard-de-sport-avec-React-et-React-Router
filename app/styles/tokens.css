@@ -1,0 +1,13 @@
+:root {
+  --Tokens-Surface-action: #0b23f4;
+  --Tokens-Surface-action-hover: #5465f7;
+  --Tokens-Surface-Background: #e7e7e7;
+  --Tokens-Surface-White: #fff;
+  --Tokens-Surface-Background-Subtle: #f2f3ff;
+  --Tokens-Border-Secondary: #717171;
+  --Tokens-Border-Primary: #0b23f4;
+  --Tokens-Text-Primary: #111;
+  --Tokens-Text-Secondary: #717171;
+  --Tokens-Text-Error: #b42318;
+  --font-family-body: "Inter", sans-serif;
+}
