@@ -1,0 +1,26 @@
+.layout {
+  min-height: 100svh;
+  background: var(--Tokens-Surface-Background-Subtle, #f2f3ff);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px clamp(24px, 6vw, 96px);
+  background: var(--Tokens-Surface-White, #fff);
+}
+
+.logout {
+  width: auto;
+  max-width: 100%;
+  padding-inline: 24px;
+}
+
+.content {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding: 64px 24px;
+}
