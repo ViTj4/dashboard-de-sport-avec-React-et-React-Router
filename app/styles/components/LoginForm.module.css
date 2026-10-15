@@ -17,6 +17,21 @@
   gap: 24px;
 }
 
+.error,
+.notice {
+  margin: 0 0 24px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.error {
+  color: var(--Tokens-Text-Error, #b42318);
+}
+
+.notice {
+  color: var(--Tokens-Text-Secondary, #717171);
+}
+
 .submit {
   width: 100%;
   margin-top: 40px;
