@@ -1,0 +1,5 @@
+.legend { display: flex; flex-wrap: wrap; gap: 20px; margin: 12px 0 0; padding: 0; list-style: none; color: var(--Tokens-Text-Secondary, #717171); font-size: 12px; line-height: 18px; }
+.legend li { display: flex; align-items: center; gap: 5px; }
+.marker { width: 8px; height: 8px; border-radius: 50%; background: var(--legend-color); }
+.line { position: relative; width: 6px; height: 6px; }
+.line::before { position: absolute; top: 2px; left: -3px; width: 12px; height: 2px; background: var(--legend-color); content: ""; }

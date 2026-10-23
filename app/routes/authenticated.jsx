@@ -1,7 +1,6 @@
-import { data, isRouteErrorResponse, Outlet, useRevalidator, useRouteError } from "react-router";
+import { data, Outlet } from "react-router";
 import AuthenticatedLayout from "~/layouts/AuthenticatedLayout/AuthenticatedLayout.jsx";
-import Button from "~/components/Button/Button.jsx";
-import StatusPanel from "~/components/StatusPanel/StatusPanel.jsx";
+import RouteErrorPanel from "~/components/RouteErrorPanel/RouteErrorPanel.jsx";
 import { getServiceErrorMessage, isAuthenticationError } from "~/errors/ServiceError.js";
 import { getAuthSession, destroyAuthSession } from "~/services/session.server.js";
 import { userService } from "~/services/sportsee.server.js";
@@ -29,17 +28,9 @@ export default function AuthenticatedRoute() {
 }
 
 export function ErrorBoundary() {
-  const error = useRouteError();
-  const revalidator = useRevalidator();
-
   return (
     <AuthenticatedLayout>
-      <StatusPanel title="Impossible de charger votre espace">
-        <p role="alert">{isRouteErrorResponse(error) ? error.data?.message : getServiceErrorMessage(error)}</p>
-        <Button onClick={() => revalidator.revalidate()} disabled={revalidator.state !== "idle"}>
-          Réessayer
-        </Button>
-      </StatusPanel>
+      <RouteErrorPanel title="Impossible de charger votre espace" />
     </AuthenticatedLayout>
   );
 }

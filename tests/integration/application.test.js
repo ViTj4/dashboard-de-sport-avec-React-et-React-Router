@@ -69,8 +69,24 @@ for (const [mode, getBase] of [["api", () => apiAppUrl], ["mock", () => mockAppU
     assert.equal(dashboard.status, 200);
     assert.equal(dashboard.headers.get("Cache-Control"), "no-store");
     const html = await dashboard.text();
-    assert.match(html, /Bonjour Sophie/);
+    assert.match(html, /Sophie/);
+    assert.match(html, /Martin/);
+    assert.match(html, /Vos dernières performances/);
+    assert.match(html, /Cette semaine/);
     assert.doesNotMatch(html, /password123|"token"|mock-[a-f0-9]{8}-/);
+    assert.match(html, /Distance totale parcourue/);
+    assert.match(html, /Conditions générales/);
+    const historical = await get(base, "/dashboard?distanceWeek=2025-01-06&heartWeek=2025-01-13", cookie);
+    assert.equal(historical.status, 200);
+    const historicalHtml = await historical.text();
+    assert.match(historicalHtml, /2025-01-06/);
+    assert.match(historicalHtml, /2025-01-13/);
+    const invalidPeriod = await get(base, "/dashboard?heartWeek=2025-02-30", cookie);
+    assert.equal(invalidPeriod.status, 400);
+    assert.match(await invalidPeriod.text(), /Réinitialiser les dates/);
+    const profile = await get(base, "/profile", cookie);
+    assert.equal(profile.status, 200);
+    assert.match(await profile.text(), /Mon profil/);
     const loginPage = await get(base, "/", cookie);
     assert.equal(loginPage.headers.get("Location"), "/dashboard");
 

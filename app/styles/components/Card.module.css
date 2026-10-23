@@ -1,0 +1,21 @@
+.card {
+  min-width: 0;
+  padding: 28px 40px;
+  border-radius: 12px;
+  background: var(--Tokens-Surface-White, #fff);
+}
+
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.title { margin: 0; color: var(--Tokens-Surface-action, #0b23f4); font-size: 22px; font-weight: 500; line-height: 1.35; }
+.secondary { color: var(--chart-heart-max, #ff3214); }
+.description { margin: 8px 0 0; color: var(--Tokens-Text-Secondary, #717171); font-size: 12px; line-height: 18px; }
+
+@media (max-width: 1100px) {
+  .header { flex-wrap: wrap; }
+  .card { padding: 28px; }
+}
+
+@media (max-width: 480px) {
+  .card { padding: 24px; }
+  .title { font-size: 20px; }
+}

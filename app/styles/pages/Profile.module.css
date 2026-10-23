@@ -1,0 +1,4 @@
+.section { margin-top: 64px; }
+.section h2 { margin: 0 0 28px; font-size: 22px; font-weight: 500; line-height: 29px; }
+.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 650px) { .metrics { grid-template-columns: minmax(0, 1fr); } }

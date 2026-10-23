@@ -9,7 +9,8 @@ export default function Button({
   ...props
 }) {
   const isNavigation     = variant === "navigation";
-  const variantClassName = isNavigation ? styles.navigation : styles.primary;
+  const variants = { primary: styles.primary, navigation: styles.navigation, text: styles.text };
+  const variantClassName = variants[variant] ?? styles.primary;
   const buttonClassName  = [styles.button, variantClassName, className]
     .filter(Boolean)
     .join(" ");
