@@ -12,6 +12,8 @@
   padding-block: 72px 90px;
 }
 
+.content.wide { width: min(1140px, calc(100% - 48px)); }
+
 @media (max-width: 760px) {
   .content { padding-block: 28px 56px; }
 }

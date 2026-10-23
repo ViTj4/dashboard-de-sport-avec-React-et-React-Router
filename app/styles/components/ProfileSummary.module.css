@@ -19,6 +19,9 @@
 .achievement { display: flex; align-items: center; justify-content: center; flex-shrink: 0; gap: 20px; min-height: 90px; padding: 20px 26px; border-radius: 12px; background: var(--Tokens-Surface-action, #0b23f4); color: #fff; }
 .achievement span { font-size: 24px; font-weight: 500; white-space: nowrap; }
 
+.summary.identityCard { min-height: 165px; padding: 24px 32px; border-radius: 12px; background: var(--Tokens-Surface-White, #fff); }
+.identityCard .identity { gap: 24px; }
+
 @media (max-width: 1100px) {
   .summary { padding: 32px; }
   .identity { gap: 24px; }
@@ -33,4 +36,5 @@
   .distance { align-items: stretch; }
   .distanceLabel { white-space: normal; }
   .achievement { min-height: 74px; }
+  .summary.identityCard { padding: 24px; }
 }
