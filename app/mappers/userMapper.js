@@ -26,6 +26,7 @@ export function mapUserInfo(data) {
     lastName      : profile.lastName,
     createdAt     : profile.createdAt,
     age           : profile.age,
+    gender        : typeof profile.gender === "string" && profile.gender.trim() ? profile.gender.trim() : null,
     weight        : profile.weight,
     height        : profile.height,
     profilePicture: profile.profilePicture,

@@ -15,3 +15,13 @@ export function formatShortDate(date) {
 export function formatNumericDate(date) {
   return formatDate(date, { day: "2-digit", month: "2-digit", year: "numeric" });
 }
+
+export function getDurationParts(totalMinutes) {
+  const minutes = Math.round(totalMinutes);
+  return { hours: Math.floor(minutes / 60), minutes: minutes % 60 };
+}
+
+export function formatHeight(centimeters) {
+  const rounded = Math.round(centimeters);
+  return `${Math.floor(rounded / 100)}m${String(rounded % 100).padStart(2, "0")}`;
+}
