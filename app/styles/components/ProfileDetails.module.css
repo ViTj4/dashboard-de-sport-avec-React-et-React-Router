@@ -1,0 +1,7 @@
+.details { --card-padding: 38px 28px 58px; }
+.details h2 { margin: 0; padding-bottom: 22px; border-bottom: 1px solid var(--Tokens-Surface-Background, #e7e7e7); font-size: 22px; font-weight: 500; line-height: 30px; }
+.details dl { display: grid; gap: 22px; margin: 30px 0 0; color: var(--Tokens-Text-Secondary, #717171); font-size: 16px; line-height: 22px; }
+.details dl > div { display: flex; flex-wrap: wrap; gap: 4px; }
+.details dt, .details dd { margin: 0; }
+
+@media (max-width: 480px) { .details { --card-padding: 28px 24px 36px; } }

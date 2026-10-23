@@ -49,6 +49,7 @@ for (const [mode, getBase] of [["api", () => apiAppUrl], ["mock", () => mockAppU
     const anonymous = await get(base, "/dashboard");
     assert.equal(anonymous.status, 302);
     assert.equal(anonymous.headers.get("Location"), "/");
+    assert.equal((await get(base, "/profile")).status, 302);
 
     const missing = await post(base, "/?index", {});
     assert.equal(missing.status, 400);
@@ -86,7 +87,15 @@ for (const [mode, getBase] of [["api", () => apiAppUrl], ["mock", () => mockAppU
     assert.match(await invalidPeriod.text(), /Réinitialiser les dates/);
     const profile = await get(base, "/profile", cookie);
     assert.equal(profile.status, 200);
-    assert.match(await profile.text(), /Mon profil/);
+    assert.equal(profile.headers.get("Cache-Control"), "no-store");
+    const profileHtml = await profile.text();
+    for (const label of ["Votre profil", "Vos statistiques", "Non renseigné", "Temps total couru", "Calories brûlées", "Nombre de jours de repos", "Nombre de sessions"]) {
+      assert.ok(profileHtml.includes(label), `Missing profile information: ${label}`);
+    }
+    assert.doesNotMatch(profileHtml, /password123|"token"/);
+    const profileContent = profileHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
+    assert.ok(profileContent);
+    assert.doesNotMatch(profileContent, /NaN|undefined/);
     const loginPage = await get(base, "/", cookie);
     assert.equal(loginPage.headers.get("Location"), "/dashboard");
 
@@ -112,6 +121,8 @@ test("invalid upstream tokens destroy the cookie and request a new login", async
   assert.equal(response.status, 302);
   assert.equal(response.headers.get("Location"), "/?reason=session-expired");
   assert.match(response.headers.get("Set-Cookie"), /Expires=Thu, 01 Jan 1970/i);
+  const profile = await get(apiAppUrl, "/profile", cookie);
+  assert.equal(profile.headers.get("Location"), "/?reason=session-expired");
   const login = await get(apiAppUrl, "/?reason=session-expired");
   assert.match(await login.text(), /Votre session a expiré/);
 });
@@ -125,4 +136,8 @@ test("network failures show a recoverable error and preserve an existing session
   assert.equal(dashboard.status, 503);
   assert.match(await dashboard.text(), /Réessayer/);
   assert.equal(dashboard.headers.get("Set-Cookie"), null);
+  const profile = await get(offlineAppUrl, "/profile", cookie);
+  assert.equal(profile.status, 503);
+  assert.match(await profile.text(), /Réessayer/);
+  assert.equal(profile.headers.get("Set-Cookie"), null);
 });

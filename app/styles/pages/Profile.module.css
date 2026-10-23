@@ -1,4 +1,10 @@
-.section { margin-top: 64px; }
-.section h2 { margin: 0 0 28px; font-size: 22px; font-weight: 500; line-height: 29px; }
-.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-@media (max-width: 650px) { .metrics { grid-template-columns: minmax(0, 1fr); } }
+.profile { display: grid; grid-template-columns: minmax(0, 0.885fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.identity { display: grid; gap: 16px; min-width: 0; }
+.statistics { min-width: 0; }
+.heading { margin-bottom: 30px; }
+.heading h2 { margin: 0; font-size: 22px; font-weight: 500; line-height: 30px; }
+.heading p { margin: 2px 0 0; color: var(--Tokens-Text-Secondary, #717171); font-size: 14px; line-height: 20px; }
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+
+@media (max-width: 1000px) { .profile { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+@media (max-width: 600px) { .metrics { grid-template-columns: minmax(0, 1fr); gap: 16px; } }
