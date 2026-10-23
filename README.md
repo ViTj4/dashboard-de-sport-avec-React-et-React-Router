@@ -101,7 +101,8 @@ stocké dans `localStorage`.
 | Route | Fonctionnement |
 | --- | --- |
 | `/` | Page de connexion ; redirection vers `/dashboard` si une session est présente. |
-| `/dashboard` | Route protégée avec vérification du profil auprès de la source active. Affiche actuellement un accueil personnalisé et la déconnexion. |
+| `/dashboard` | Profil, distance cumulée, graphiques des performances et bilan hebdomadaire. |
+| `/profile` | Consultation des informations personnelles du compte connecté. |
 | `POST /logout` | Suppression du cookie de session et retour à la connexion. |
 
 Un token refusé par l'API efface la session et ramène au formulaire. Une panne
@@ -111,6 +112,34 @@ pendant le traitement.
 
 La récupération du mot de passe n'est pas implémentée ; l'API ne fournit pas
 d'endpoint pour cette fonctionnalité.
+
+## Dashboard
+
+Les graphiques sont réalisés avec Recharts et utilisent la source API ou mock
+sélectionnée dans `.env`.
+
+- **Distances** : kilomètres cumulés par semaine sur quatre semaines calendaires,
+  avec une moyenne calculée sur ces quatre semaines, y compris les semaines sans course.
+- **Fréquence cardiaque** : minimum, maximum et moyenne des courses par jour sur
+  une semaine. Les journées sans course restent sans mesure ; la courbe relie
+  les jours pour lesquels une moyenne est disponible.
+- **Cette semaine** : nombre de courses, durée d'activité et distance de la semaine
+  en cours, indépendamment des périodes consultées dans les graphiques.
+
+Les semaines vont du lundi au dimanche. Les deux paginations sont indépendantes :
+elles avancent par quatre semaines pour les distances et par une semaine pour
+la fréquence cardiaque. Les paramètres `distanceWeek` et `heartWeek` de l'URL
+permettent de conserver ou partager la sélection. La navigation est bornée par
+la semaine d'inscription et la période courante ; les activités futures sont exclues.
+
+L'objectif hebdomadaire est une valeur applicative configurable dans
+`app/config/dashboard.js`, fixée par défaut à six courses. Il n'est pas fourni par l'API.
+
+Les graphiques proposent des infobulles et des tableaux de données accessibles.
+Les périodes sans activité et les erreurs de chargement disposent d'un affichage dédié.
+L'en-tête, le footer et le logo animé sont partagés entre les pages authentifiées.
+Les destinations des rubriques « Conditions générales » et « Contact » du footer
+restent à renseigner via les propriétés du composant `AppFooter`.
 
 ## Build de production
 
@@ -154,7 +183,7 @@ statistiques et activités entre l'API et le mock.
 - `app/layouts/` : mises en page partagées.
 - `app/components/` : composants d'interface réutilisables.
 - `app/hooks/` : hooks React, dont `useAuth` pour accéder à l'utilisateur connecté.
-- `app/domain/` : validation des identifiants et des plages de dates.
+- `app/domain/` : validation des identifiants, gestion des périodes et calcul des statistiques du dashboard.
 - `app/services/` : services d'authentification, de session et de données ; accès HTTP dans `repositories/`.
 - `app/mappers/` : transformation des réponses de l'API vers les données utilisées par l'application.
 - `app/mocks/` : données et implémentation du mock.
