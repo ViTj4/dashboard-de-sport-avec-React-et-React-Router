@@ -1,0 +1,6 @@
+.card { padding: 20px 30px; }
+.label { margin: 0 0 16px; color: var(--Tokens-Text-Secondary, #717171); font-size: 14px; line-height: 20px; }
+.value { margin: 0; color: var(--chart-primary); font-size: 24px; line-height: 30px; }
+.value span { color: var(--chart-primary-muted); font-size: 16px; }
+.secondary { color: var(--chart-heart-max); }
+.secondary span { color: var(--chart-heart-min); }

@@ -10,4 +10,10 @@
   --Tokens-Text-Secondary: #717171;
   --Tokens-Text-Error: #b42318;
   --font-family-body: "Inter", sans-serif;
+  --chart-primary: #0b23f4;
+  --chart-primary-muted: #b5bcff;
+  --chart-heart-min: #ffbdb4;
+  --chart-heart-max: #ff3214;
+  --chart-line: #f0f2ff;
+  --chart-grid: #ececec;
 }

@@ -38,6 +38,23 @@
   color: var(--Tokens-Border-Secondary, #717171);
 }
 
+.text {
+  width: auto;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  color: var(--Tokens-Surface-action, #0b23f4);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.button.text:is(:hover, :focus):not(:disabled) {
+  background: transparent;
+  color: var(--Tokens-Surface-action-hover, #5465f7);
+  text-decoration: underline;
+}
+
 .navigationContent {
   display: inline-flex;
   align-items: center;

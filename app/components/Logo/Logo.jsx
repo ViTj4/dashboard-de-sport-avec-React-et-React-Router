@@ -2,7 +2,7 @@ import logo from "~/assets/logos/logo.svg";
 import LogoIcon from "./LogoIcon.jsx";
 import styles from "~/styles/components/Logo.module.css";
 
-export default function Logo({ animated = true, className = "", ...props }) {
+export default function Logo({ animated = true, iconOnly = false, className = "", ...props }) {
   const logoClassName = [styles.logo, animated && styles.animated, className]
     .filter(Boolean)
     .join(" ");
@@ -15,14 +15,14 @@ export default function Logo({ animated = true, className = "", ...props }) {
       className={logoClassName}
     >
       <LogoIcon />
-      <img
+      {!iconOnly && <img
         className={styles.wordmark}
         src={logo}
         alt=""
         aria-hidden="true"
         width={133}
         height={24}
-      />
+      />}
     </span>
   );
 }
