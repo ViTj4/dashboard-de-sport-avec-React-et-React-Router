@@ -11,6 +11,7 @@ export function mapActivitySessions(data) {
     if (!isIsoDate(session?.date) ||
         !Number.isFinite(session.distance) || session.distance < 0 ||
         !Number.isFinite(session.duration) || session.duration < 0 ||
+        (session.caloriesBurned != null && (!Number.isFinite(session.caloriesBurned) || session.caloriesBurned < 0)) ||
         ![heartRate?.min, heartRate?.max, heartRate?.average].every((value) => Number.isFinite(value) && value > 0) ||
         heartRate.min > heartRate.average || heartRate.average > heartRate.max) {
       throw createServiceError("Invalid activity session.", { code: "INVALID_RESPONSE" });
@@ -21,7 +22,7 @@ export function mapActivitySessions(data) {
       distance: session.distance,
       duration: session.duration,
       heartRate: { min: heartRate.min, max: heartRate.max, average: heartRate.average },
-      caloriesBurned: session.caloriesBurned,
+      caloriesBurned: session.caloriesBurned ?? null,
     };
   }).toSorted((first, second) => first.date.localeCompare(second.date));
 }

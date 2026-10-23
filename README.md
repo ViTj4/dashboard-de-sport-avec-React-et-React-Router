@@ -102,7 +102,7 @@ stocké dans `localStorage`.
 | --- | --- |
 | `/` | Page de connexion ; redirection vers `/dashboard` si une session est présente. |
 | `/dashboard` | Profil, distance cumulée, graphiques des performances et bilan hebdomadaire. |
-| `/profile` | Consultation des informations personnelles du compte connecté. |
+| `/profile` | Informations personnelles et statistiques cumulées du compte connecté. |
 | `POST /logout` | Suppression du cookie de session et retour à la connexion. |
 
 Un token refusé par l'API efface la session et ramène au formulaire. Une panne
@@ -140,6 +140,23 @@ Les périodes sans activité et les erreurs de chargement disposent d'un afficha
 L'en-tête, le footer et le logo animé sont partagés entre les pages authentifiées.
 Les destinations des rubriques « Conditions générales » et « Contact » du footer
 restent à renseigner via les propriétés du composant `AppFooter`.
+
+## Profil
+
+La page `/profile` partage l'en-tête, le footer animé et les composants de cartes
+du dashboard. Elle affiche l'identité, l'âge, le genre, la taille et le poids.
+Le genre, absent de l'API actuelle, est affiché « Non renseigné ».
+
+La durée totale (heures et minutes), la distance et le nombre de sessions sont
+les totaux de `/api/user-info`, également utilisés sur le dashboard. L'API actuelle
+cumule toutes les activités enregistrées pour ces totaux, y compris les dates futures.
+
+Les calories et les jours de repos sont calculés depuis `/api/user-activity`,
+entre l'inscription et aujourd'hui inclus, sans activité future. Un jour avec
+plusieurs courses compte comme une seule journée active. Une mesure de calories
+manquante affiche « — », sans la remplacer par zéro ; un historique vide vaut zéro.
+Les calculs de jours utilisent des dates calendaires pour rester stables lors des
+changements d'heure. Les données sont chargées côté serveur et la route reste protégée.
 
 ## Build de production
 
