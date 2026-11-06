@@ -5,6 +5,7 @@ import MetricCard from "~/components/MetricCard/MetricCard.jsx";
 import { formatDate, getDurationParts } from "~/utils/formatters.js";
 import styles from "~/styles/pages/Profile.module.css";
 
+/** Présente le modèle préparé par le service ; les calculs d'activité restent hors de la vue. */
 export default function Profile() {
   const { user, statistics, period } = useLoaderData();
   const duration = getDurationParts(statistics.totalDuration);

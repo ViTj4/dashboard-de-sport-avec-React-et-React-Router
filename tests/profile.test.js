@@ -6,11 +6,13 @@ import { mapActivitySessions } from "../app/mappers/activityMapper.js";
 import { mapUserInfo } from "../app/mappers/userMapper.js";
 import { formatHeight, getDurationParts } from "../app/utils/formatters.js";
 
+// Les totaux fournis par l'API restent indépendants des activités utilisées pour calories et repos.
 const user = {
   createdAt: "2024-02-28",
   statistics: { totalDistance: 42.5, totalDuration: 1635, totalSessions: 5 },
 };
 
+// Le cas couvre une année bissextile, deux courses le même jour et les limites de l'historique.
 test("profile statistics count calendar rest days once and keep the API totals", () => {
   const sessions = [
     { date: "2024-02-27", caloriesBurned: 999 },
