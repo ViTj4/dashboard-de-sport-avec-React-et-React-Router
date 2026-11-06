@@ -4,11 +4,13 @@ import fallbackPicture from "~/assets/images/profil_picture_default.png";
 import { formatDate, formatNumber } from "~/utils/formatters.js";
 import styles from "~/styles/components/ProfileSummary.module.css";
 
+/** Partage l'identité entre le dashboard, avec distance cumulée, et la page profil. */
 export default function ProfileSummary({ user, variant = "overview" }) {
   const [failedPicture, setFailedPicture] = useState(null);
   const pictureRef = useRef(null);
   const picture = !user.profilePicture || failedPicture === user.profilePicture ? fallbackPicture : user.profilePicture;
 
+  // L'image peut avoir échoué avant que l'hydratation n'attache son gestionnaire onError.
   useEffect(() => {
     const image = pictureRef.current;
     if (image?.complete && image.naturalWidth === 0) setFailedPicture(user.profilePicture);

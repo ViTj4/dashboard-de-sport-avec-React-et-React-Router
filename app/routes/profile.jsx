@@ -5,10 +5,13 @@ import { getServiceErrorMessage, isAuthenticationError } from "~/errors/ServiceE
 import { getAuthSession, destroyAuthSession } from "~/services/session.server.js";
 import { profileService } from "~/services/sportsee.server.js";
 
+// Le layout partagé lit cette métadonnée pour choisir la largeur de la page.
 export const handle = { wideContent: true };
 export const headers = () => ({ "Cache-Control": "no-store" });
 
+/** Charge le profil complet côté serveur et conserve le token hors des données sérialisées. */
 export async function loader({ request }) {
+  // Le loader enfant protège aussi ses propres requêtes, même si le parent vérifie déjà la session.
   const session = await getAuthSession(request);
   if (!session) throw await destroyAuthSession(request);
 

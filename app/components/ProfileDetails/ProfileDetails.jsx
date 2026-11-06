@@ -3,6 +3,7 @@ import Card from "~/components/Card/Card.jsx";
 import { formatHeight, formatNumber } from "~/utils/formatters.js";
 import styles from "~/styles/components/ProfileDetails.module.css";
 
+/** Formate les informations disponibles sans déduire les valeurs absentes, notamment le genre. */
 export default function ProfileDetails({ user }) {
   const titleId = useId();
   const fields = [
