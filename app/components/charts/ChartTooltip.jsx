@@ -1,6 +1,7 @@
 import { formatNumber } from "~/utils/formatters.js";
 import styles from "~/styles/components/Charts.module.css";
 
+/** Filtre les mesures absentes et délègue le libellé à la série affichée. */
 export default function ChartTooltip({ active, payload, unit, getLabel }) {
   const entries = payload?.filter((entry) => entry.value !== null && entry.value !== undefined);
   if (!active || !entries?.length) return null;

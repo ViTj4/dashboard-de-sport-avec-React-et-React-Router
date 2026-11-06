@@ -1,6 +1,7 @@
 import { Pie, PieChart, ResponsiveContainer } from "recharts";
 import styles from "~/styles/components/Charts.module.css";
 
+// La position des libellés est bornée au graphique pour éviter une coupe sur les petits écrans.
 function GoalLabel({ cx, cy, midAngle, outerRadius, payload }) {
   if (!payload.value) return null;
   const angle = -midAngle * Math.PI / 180;
@@ -15,8 +16,10 @@ function GoalLabel({ cx, cy, midAngle, outerRadius, payload }) {
   </g>;
 }
 
+/** Représente la progression vers l'objectif, avec un résumé textuel pour les lecteurs d'écran. */
 export default function WeeklyGoalChart({ sessions, goal }) {
   const remaining = Math.max(0, goal - sessions);
+  // Le secteur est plafonné à l'objectif ; son libellé conserve le nombre réel de courses.
   const data = [
     { value: Math.min(sessions, goal), label: `${sessions} réalisées`, fill: "var(--chart-primary)" },
     { value: remaining, label: `${remaining} restantes`, fill: "var(--chart-primary-muted)" },

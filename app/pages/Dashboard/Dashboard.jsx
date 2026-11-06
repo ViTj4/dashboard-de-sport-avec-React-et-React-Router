@@ -13,9 +13,11 @@ import { formatNumber, formatNumericDate } from "~/utils/formatters.js";
 import { addDays } from "~/utils/dates.js";
 import styles from "~/styles/pages/Dashboard.module.css";
 
+/** Assemble les données calculées côté serveur et les composants de présentation. */
 export default function Dashboard() {
   const { user } = useAuth();
   const { distance, heart, currentWeek, periods } = useLoaderData();
+  // Chaque carte a son paramètre ; le bilan hebdomadaire reste attaché à la semaine courante.
   const distancePagination = useDatePagination({ parameter: "distanceWeek", period: periods.distance, earliestDate: user.createdAt });
   const heartPagination = useDatePagination({ parameter: "heartWeek", period: periods.heart, earliestDate: user.createdAt });
   const goal = dashboardSettings.weeklySessionGoal;

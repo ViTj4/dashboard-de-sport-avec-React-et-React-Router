@@ -4,6 +4,7 @@ import { getDashboardPeriods, getActivityRequestRange, buildDashboardData } from
 import { mapActivitySessions } from "../app/mappers/activityMapper.js";
 import { addDays, getToday, startOfWeek } from "../app/utils/dates.js";
 
+// Les dates fixes rendent les calculs indépendants du jour où la suite est exécutée.
 function session(date, distance = 5, duration = 30, heartRate = { min: 120, max: 180, average: 150 }) {
   return { date, distance, duration, heartRate };
 }
@@ -57,6 +58,7 @@ test("dashboard aggregation includes boundaries, empty weeks and multiple sessio
   assert.deepEqual(sessions, before);
 });
 
+// Changer l'historique des graphiques ne doit jamais déplacer les indicateurs de la semaine en cours.
 test("historical chart pagination does not alter the current week summary", () => {
   const periods = getDashboardPeriods(new URLSearchParams("distanceWeek=2025-01-06&heartWeek=2025-01-13"), "2026-10-23");
   const data = buildDashboardData([session("2025-01-14", 12), session("2026-10-20", 5)], periods);

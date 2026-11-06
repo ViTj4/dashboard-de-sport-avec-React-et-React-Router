@@ -15,12 +15,15 @@ const columns = [
   { key: "max", label: "Maximum (BPM)" }, { key: "average", label: "Moyenne (BPM)" },
 ];
 
+/** Superpose minimum, maximum et moyenne sans transformer les jours de repos en mesures. */
 export default function HeartRateChart({ days, hasData }) {
+  // L'échelle est calculée uniquement sur les jours disposant de mesures.
   const observed = days.filter((day) => day.min !== null);
   const lower = observed.length ? Math.max(0, Math.floor((Math.min(...observed.map((day) => day.min)) - 5) / 10) * 10) : 0;
   const upper = observed.length ? Math.ceil((Math.max(...observed.map((day) => day.max)) + 5) / 10) * 10 : 200;
   const ticks = Array.from({ length: 5 }, (_, index) => lower + index * (upper - lower) / 4);
 
+  // connectNulls relie les moyennes observées ; aucun point n'est ajouté pour les jours sans course.
   return (
     <>
       <div className={styles.chart}>

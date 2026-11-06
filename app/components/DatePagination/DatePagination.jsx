@@ -2,6 +2,7 @@ import Button from "~/components/Button/Button.jsx";
 import { formatDate } from "~/utils/formatters.js";
 import styles from "~/styles/components/DatePagination.module.css";
 
+/** Affiche les dates et les commandes ; les bornes et les déplacements appartiennent au hook appelant. */
 export default function DatePagination({ label, period, canGoPrevious, canGoNext, onPrevious, onNext, isPending }) {
   return (
     <nav className={styles.pagination} aria-label={`Période — ${label}`}>
