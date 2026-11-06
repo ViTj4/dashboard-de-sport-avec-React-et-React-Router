@@ -1,6 +1,7 @@
 import { useId } from "react";
 import styles from "~/styles/components/FormField.module.css";
 
+/** Associe le libellé et l'erreur à un champ natif sans perdre les propriétés de l'appelant. */
 export default function FormField({
   label,
   id,
@@ -13,6 +14,7 @@ export default function FormField({
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const errorId = `${inputId}-error`;
+  // L'erreur s'ajoute aux descriptions existantes au lieu de les remplacer.
   const describedBy = [
     inputProps["aria-describedby"],
     error ? errorId : null,

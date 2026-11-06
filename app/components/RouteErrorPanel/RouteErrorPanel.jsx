@@ -3,6 +3,7 @@ import Button from "~/components/Button/Button.jsx";
 import StatusPanel from "~/components/StatusPanel/StatusPanel.jsx";
 import { getServiceErrorMessage } from "~/errors/ServiceError.js";
 
+/** Propose la récupération adaptée : réinitialiser une période invalide ou relancer les loaders. */
 export default function RouteErrorPanel({ title = "Impossible de charger les données" }) {
   const error = useRouteError();
   const revalidator = useRevalidator();

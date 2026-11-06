@@ -1,8 +1,8 @@
 import { useId } from "react";
 import styles from "~/styles/components/Logo.module.css";
 
-// Coordinates and colours from the supplied SVGs, with the rotated orange
-// rectangles expressed in the same coordinates as the blue ones.
+// Géométrie des SVG fournis : les rectangles orange tournés sont exprimés
+// dans le même repère que les rectangles bleus.
 const bars = [
   { x: 0, blueY: 11, blueHeight: 8, orangeY: 3.3281, orangeHeight: 11, motion: styles.firstBar },
   { x: 4.00003, blueY: 5.65625, blueHeight: 15, orangeY: 0, orangeHeight: 14, motion: styles.secondBar, blueMotion: styles.blueBar },
@@ -11,7 +11,9 @@ const bars = [
   { x: 16, blueY: 11.3281, blueHeight: 6, orangeY: 0, orangeHeight: 14, motion: styles.fifthBar },
 ];
 
+/** Dessine les barres séparément pour permettre leur animation par les classes CSS. */
 export default function LogoIcon() {
+  // Des identifiants propres à chaque instance évitent les collisions entre le header et le footer.
   const gradientId = useId();
   const blueGradientId = `${gradientId}-blue`;
   const orangeGradientId = `${gradientId}-orange`;
