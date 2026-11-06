@@ -10,6 +10,7 @@ let offlineAppUrl;
 const applications = [];
 const cookieSigner = createCookie("sportsee_session", { secrets: [env.sessionSecret] });
 
+// Trois applications isolées couvrent l'API réelle, le mock et un service volontairement injoignable.
 before(async () => {
   for (const options of [
     { dataSource: "api", apiBaseUrl: env.apiBaseUrl },
@@ -25,11 +26,13 @@ after(async () => {
   await Promise.all(applications.map((application) => application.stop()));
 });
 
+// Un cookie correctement signé contenant un mauvais token permet de tester le refus par l'API.
 async function createCookieWithToken(token) {
   const serialized = await cookieSigner.serialize({ token, userId: "user123", source: "api" });
   return serialized.split(";")[0];
 }
 
+// Les redirections restent manuelles pour pouvoir vérifier leur statut et leur destination.
 function get(base, path, cookie) {
   return fetch(new URL(path, base), { redirect: "manual", headers: cookie ? { Cookie: cookie } : {} });
 }
@@ -43,6 +46,7 @@ function post(base, path, fields, { cookie, origin = base } = {}) {
   });
 }
 
+// Le même parcours doit rester valide pour les deux sources de données.
 for (const [mode, getBase] of [["api", () => apiAppUrl], ["mock", () => mockAppUrl]]) {
   test(`${mode}: protected route, login validation, private session and logout`, async () => {
     const base      = getBase();
@@ -93,6 +97,7 @@ for (const [mode, getBase] of [["api", () => apiAppUrl], ["mock", () => mockAppU
       assert.ok(profileHtml.includes(label), `Missing profile information: ${label}`);
     }
     assert.doesNotMatch(profileHtml, /password123|"token"/);
+    // Le script d'hydratation peut contenir undefined ; seule la partie affichée doit en être exempte.
     const profileContent = profileHtml.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1];
     assert.ok(profileContent);
     assert.doesNotMatch(profileContent, /NaN|undefined/);

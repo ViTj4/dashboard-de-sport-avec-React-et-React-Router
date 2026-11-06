@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const projectRoot = fileURLToPath(new URL("../../", import.meta.url));
 const serveEntry  = fileURLToPath(new URL("../../node_modules/@react-router/serve/bin.cjs", import.meta.url));
 
+// Demander le port zéro laisse le système choisir un port libre pour chaque serveur de test.
 async function getAvailablePort() {
   const server = createServer();
   await new Promise((resolve, reject) => {
@@ -16,6 +17,7 @@ async function getAvailablePort() {
   return port;
 }
 
+/** Lance le build de production avec une configuration isolée et fournit son arrêt aux tests. */
 export async function startApplication({ dataSource, apiBaseUrl, sessionSecret }) {
   const port  = await getAvailablePort();
   const child = spawn(process.execPath, [serveEntry, "build/server/index.js"], {
@@ -49,6 +51,7 @@ export async function startApplication({ dataSource, apiBaseUrl, sessionSecret }
       }
       function onData(chunk) {
         output += chunk.toString();
+        // Les requêtes de test attendent le signal de disponibilité du serveur.
         if (output.includes("[react-router-serve]")) finish();
       }
       child.stderr.on("data", (chunk) => { output += chunk.toString(); });
@@ -61,10 +64,11 @@ export async function startApplication({ dataSource, apiBaseUrl, sessionSecret }
     throw error;
   }
 
-    // Drain request logs so the child never blocks on a full stdout pipe.
+  // Consomme les logs pour éviter que le processus ne bloque lorsque sa sortie est pleine.
   child.stdout.resume();
   return {
     url: `http://127.0.0.1:${port}`,
+    // L'arrêt peut être demandé même après une sortie anticipée du processus.
     async stop() {
       if (child.exitCode !== null || child.signalCode !== null) return;
       await new Promise((resolve) => { child.once("exit", resolve); child.kill(); });

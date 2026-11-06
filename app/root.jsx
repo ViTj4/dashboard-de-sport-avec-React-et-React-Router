@@ -9,6 +9,7 @@ import {
 import iconLogo from "~/assets/logos/Icon_logo_default.svg";
 import "~/styles/global.css";
 
+// Le favicon et la police sont déclarés une fois pour toutes les pages.
 export const links = () => [
   { rel: "icon", type: "image/svg+xml", href: iconLogo },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,6 +24,7 @@ export const links = () => [
   },
 ];
 
+/** Fournit le document HTML et les éléments React Router nécessaires au rendu et à l'hydratation. */
 export function Layout({ children }) {
   return (
     <html lang="fr">
@@ -42,6 +44,7 @@ export function Layout({ children }) {
   );
 }
 
+/** Laisse la route active fournir le contenu du document partagé. */
 export default function App() {
   return <Outlet />;
 }
