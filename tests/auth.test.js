@@ -7,6 +7,7 @@ import { validateActivityRange } from "../app/domain/activity/dateRange.js";
 import { assertSameOriginPost } from "../app/utils/http.server.js";
 import { createServiceError, isAuthenticationError } from "../app/errors/ServiceError.js";
 
+// Les services sont injectés ou simulés : ces tests vérifient les contrats sans serveur HTTP.
 test("functional service errors preserve their cause and identify authentication failures", () => {
   const cause = new Error("Upstream rejected the session.");
   const error = createServiceError("Invalid session.", { status: 401, cause });
@@ -19,6 +20,7 @@ test("functional service errors preserve their cause and identify authentication
   assert.equal(isAuthenticationError(null), false);
 });
 
+// Ces espaces sont volontaires : un nettoyage du mot de passe modifierait les identifiants saisis.
 test("login trims the username and preserves the password verbatim", () => {
   const form = new FormData();
   form.set("username", "  sophiemartin  ");

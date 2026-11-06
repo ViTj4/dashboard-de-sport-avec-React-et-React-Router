@@ -7,18 +7,21 @@ import { userService } from "~/services/sportsee.server.js";
 
 export const headers = () => ({ "Cache-Control": "no-store" });
 
+/** Charge le profil partagé des pages protégées, en validant la session auprès du service. */
 export async function loader({ request }) {
   const session = await getAuthSession(request);
   if (!session) throw await destroyAuthSession(request);
 
   try {
     const user = await userService.getUserInfo(session.token, { signal: request.signal });
+    // Seules les informations utilisateur sont sérialisées ; le token reste dans le traitement serveur.
     return { user: { id: session.userId, ...user } };
   } catch (error) {
     if (request.signal.aborted) throw error;
     if (isAuthenticationError(error)) {
       throw await destroyAuthSession(request, { expired: true });
     }
+    // Une panne conserve la session afin de permettre un nouvel essai sans reconnexion.
     throw data({ message: getServiceErrorMessage(error) }, { status: 503 });
   }
 }

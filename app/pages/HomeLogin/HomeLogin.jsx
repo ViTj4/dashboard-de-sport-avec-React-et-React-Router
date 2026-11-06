@@ -4,6 +4,7 @@ import LoginForm from "~/components/LoginForm/LoginForm.jsx";
 import AuthLayout from "~/layouts/AuthLayout/AuthLayout.jsx";
 import styles from "~/styles/pages/HomeLogin.module.css";
 
+/** Relie les résultats du loader et de l'action au formulaire, sans appel API dans la vue. */
 export default function HomeLogin() {
   const actionData = useActionData();
   const { notice } = useLoaderData();

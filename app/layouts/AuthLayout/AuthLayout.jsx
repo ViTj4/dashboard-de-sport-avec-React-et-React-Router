@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import Logo     from "~/components/Logo/Logo.jsx";
 import styles   from "~/styles/layouts/AuthLayout.module.css";
 
+/** Partage la structure des pages d'authentification ; une image décorative garde un texte alternatif vide. */
 export default function AuthLayout({
   children,
   imageSrc,
