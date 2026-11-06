@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createAuthSession, getAuthSession, destroyAuthSession } from "../app/services/session.server.js";
 
+// Vérifie l'aller-retour du cookie et le refus d'une signature altérée, sans dépendre du JWT de l'API.
 test("sessions use signed HttpOnly cookies and reject tampering", async () => {
   const response = await createAuthSession({ token: "private-test-token", userId: "user123" });
   assert.equal(response.headers.get("Location"), "/dashboard");

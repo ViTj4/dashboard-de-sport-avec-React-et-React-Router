@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { loadEnvFile } from "node:process";
 
+// Le fichier .env est facultatif ; les erreurs de lecture autres qu'un fichier absent restent bloquantes.
 try {
   loadEnvFile();
 } catch (error) {
@@ -19,6 +20,7 @@ if (!/^https?:$/.test(new URL(apiBaseUrl).protocol)) {
 }
 
 const isProduction = process.env.NODE_ENV === "production";
+// Le secret temporaire facilite le développement, mais invalide les anciennes sessions au redémarrage.
 const sessionSecret = process.env.SESSION_SECRET ||
   (isProduction ? "" : randomBytes(32).toString("hex"));
 
@@ -26,6 +28,7 @@ if (sessionSecret.length < 32) {
   throw new Error("SESSION_SECRET must contain at least 32 characters.");
 }
 
+// Cette configuration reste côté serveur : aucun secret n'est transmis aux composants React.
 export const env = Object.freeze({
   apiBaseUrl,
   dataSource,

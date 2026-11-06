@@ -1,3 +1,4 @@
+/** Refuse les mutations par GET et les origines explicitement différentes de celle du serveur. */
 export function assertSameOriginPost(request) {
   if (request.method !== "POST") {
     throw new Response("Method not allowed", { status: 405, headers: { Allow: "POST" } });

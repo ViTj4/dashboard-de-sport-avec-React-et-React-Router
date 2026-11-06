@@ -4,6 +4,7 @@ import Button from "~/components/Button/Button.jsx";
 import FormField from "~/components/FormField/FormField.jsx";
 import styles from "~/styles/components/LoginForm.module.css";
 
+/** Formulaire réutilisable : action React Router par défaut, callback facultatif pour un autre usage. */
 export default function LoginForm({
   onSubmit,
   onForgotPassword,
@@ -17,6 +18,7 @@ export default function LoginForm({
   const errorId = `${headingId}-error`;
 
   function handleSubmit(event) {
+    // Sans callback, React Router garde la main sur l'envoi et la gestion de son action.
     if (!onSubmit) return;
     event.preventDefault();
 
