@@ -2,6 +2,7 @@ import logo from "~/assets/logos/logo.svg";
 import LogoIcon from "./LogoIcon.jsx";
 import styles from "~/styles/components/Logo.module.css";
 
+/** Partage l'animation du logo complet et de l'icône seule ; le nom accessible appartient au conteneur. */
 export default function Logo({ animated = true, iconOnly = false, className = "", ...props }) {
   const logoClassName = [styles.logo, animated && styles.animated, className]
     .filter(Boolean)

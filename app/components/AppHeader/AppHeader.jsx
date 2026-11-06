@@ -3,6 +3,7 @@ import Button from "~/components/Button/Button.jsx";
 import Logo from "~/components/Logo/Logo.jsx";
 import styles from "~/styles/components/AppHeader.module.css";
 
+/** Partage la navigation des pages connectées et déclenche la déconnexion par une action POST. */
 export default function AppHeader() {
   const navigation = useNavigation();
   const isLoggingOut = navigation.state !== "idle" && navigation.formAction === "/logout";
