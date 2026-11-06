@@ -4,6 +4,7 @@ import { AxiosError, CanceledError } from "axios";
 import { createApiRepository } from "../app/services/repositories/apiRepository.server.js";
 import { createMockRepository } from "../app/mocks/mockRepository.server.js";
 
+// Les clients HTTP injectés permettent de vérifier l'isolation des tokens sans démarrer l'API.
 test("API requests keep each user's Bearer token isolated", async () => {
   const requests = [];
   const repository = createApiRepository({ client: {
@@ -77,6 +78,7 @@ test("mock activities include range boundaries, sort dates and exclude future se
       { date: "2026-01-04", distance: 9, duration: 50 },
     ],
   }];
+  // Cette horloge contrôlée permet de tester l'expiration sans attendre vingt-quatre heures.
   let timestamp = Date.parse("2026-01-03T12:00:00Z");
   const repository = createMockRepository({ users, now: () => timestamp });
   const { token } = await repository.login({ username: "sophiemartin", password: "password123" });

@@ -10,7 +10,9 @@ const demoPasswords = {
 };
 const sessionDuration = 24 * 60 * 60 * 1000;
 
+/** Reproduit le contrat de l'API ; l'horloge injectée rend les dates et l'expiration testables. */
 export function createMockRepository({ users = mockUsers, now = Date.now } = {}) {
+  // Ces sessions opaques sont locales au processus et disparaissent au redémarrage.
   const sessions = new Map();
 
   function getUser(token, signal) {
@@ -45,8 +47,10 @@ export function createMockRepository({ users = mockUsers, now = Date.now } = {})
     async getUserInfo(token, { signal } = {}) {
       const user = getUser(token, signal);
       return {
+        // Les copies empêchent un consommateur de modifier le jeu de données commun.
         profile: structuredClone(user.profile),
         statistics: {
+          // Comme l'API actuelle, ces totaux incluent toutes les activités, même futures.
           totalDistance: user.activities.reduce((sum, session) => sum + session.distance, 0).toFixed(1),
           totalSessions: user.activities.length,
           totalDuration: user.activities.reduce((sum, session) => sum + session.duration, 0),
@@ -56,6 +60,7 @@ export function createMockRepository({ users = mockUsers, now = Date.now } = {})
     async getUserActivity(token, { startWeek, endWeek, signal }) {
       const user = getUser(token, signal);
       validateActivityRange({ startWeek, endWeek });
+      // La liste datée, contrairement aux totaux, exclut les activités futures.
       const today = new Date(now()).toISOString().slice(0, 10);
       return structuredClone(user.activities
         .filter((session) => session.date >= startWeek && session.date <= endWeek && session.date <= today)

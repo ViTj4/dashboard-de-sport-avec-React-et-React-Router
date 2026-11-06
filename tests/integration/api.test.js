@@ -4,6 +4,7 @@ import { createApiRepository }  from "../../app/services/repositories/apiReposit
 import { createMockRepository } from "../../app/mocks/mockRepository.server.js";
 import { env }                  from "../../app/config/env.server.js";
 
+// Test de parité : l'API locale doit être démarrée et utiliser le même jeu de démonstration que le mock.
 test("real API and mock share profiles, statistics and historical activities", async () => {
   const api  = createApiRepository({ baseURL: env.apiBaseUrl });
   const mock = createMockRepository();

@@ -1,9 +1,11 @@
 import { createServiceError } from "../errors/ServiceError.js";
 
+/** Adapte la réponse API/mock au modèle utilisateur partagé par les pages. */
 export function mapUserInfo(data) {
   const profile       = data?.profile;
   const statistics    = data?.statistics;
   const rawDistance   = statistics?.totalDistance;
+  // L'API renvoie la distance en texte ; une valeur vide ne doit pas devenir artificiellement zéro.
   const totalDistance = typeof rawDistance === "number" ||
     (typeof rawDistance === "string" && rawDistance.trim() !== "")
     ? Number(rawDistance)
