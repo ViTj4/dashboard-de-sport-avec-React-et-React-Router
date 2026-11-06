@@ -5,6 +5,7 @@ import { createAuthService } from "./auth.server.js";
 import { createUserService } from "./user.server.js";
 import { createProfileService } from "./profile.server.js";
 
+// Point de composition : les services et les vues gardent le même contrat quel que soit DATA_SOURCE.
 const repository = env.dataSource === "mock"
   ? createMockRepository()
   : createApiRepository({ baseURL: env.apiBaseUrl });

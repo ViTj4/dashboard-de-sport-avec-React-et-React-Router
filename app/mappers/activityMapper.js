@@ -1,6 +1,7 @@
 import { isIsoDate } from "../domain/activity/dateRange.js";
 import { createServiceError } from "../errors/ServiceError.js";
 
+/** Refuse les mesures incohérentes et renvoie des sessions triées sans modifier les données reçues. */
 export function mapActivitySessions(data) {
   if (!Array.isArray(data)) {
     throw createServiceError("Invalid activity response.", { code: "INVALID_RESPONSE" });
@@ -22,6 +23,7 @@ export function mapActivitySessions(data) {
       distance: session.distance,
       duration: session.duration,
       heartRate: { min: heartRate.min, max: heartRate.max, average: heartRate.average },
+      // null conserve la différence entre une mesure absente et zéro calorie.
       caloriesBurned: session.caloriesBurned ?? null,
     };
   }).toSorted((first, second) => first.date.localeCompare(second.date));
