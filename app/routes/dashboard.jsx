@@ -8,7 +8,9 @@ import { getServiceErrorMessage, isAuthenticationError } from "~/errors/ServiceE
 
 export const headers = () => ({ "Cache-Control": "no-store" });
 
+/** Authentifie la requête, lit les périodes et charge les données avant de rendre la page. */
 export async function loader({ request }) {
+  // Les loaders parent et enfant peuvent s'exécuter en parallèle : chacun vérifie sa session.
   const session = await getAuthSession(request);
   if (!session) throw await destroyAuthSession(request);
 
@@ -19,6 +21,7 @@ export async function loader({ request }) {
     });
     return buildDashboardData(sessions, periods);
   } catch (error) {
+    // Une navigation remplacée ne doit pas afficher une fausse panne.
     if (request.signal.aborted) throw error;
     if (isAuthenticationError(error)) throw await destroyAuthSession(request, { expired: true });
     throw data({ message: error.code === "VALIDATION_ERROR"

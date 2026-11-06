@@ -1,6 +1,8 @@
 import styles from "~/styles/components/Charts.module.css";
 
+/** Rend les données lisibles par les technologies d'assistance en complément du graphique SVG. */
 export default function ChartDataTable({ caption, columns, rows }) {
+  // Le conteneur porte le masquage visuel pour que la largeur intrinsèque du tableau ne déborde pas.
   return (
     <div className={styles.srOnly}><table>
       <caption>{caption}</caption>

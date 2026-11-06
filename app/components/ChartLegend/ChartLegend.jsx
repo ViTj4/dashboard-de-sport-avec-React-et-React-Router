@@ -1,5 +1,6 @@
 import styles from "~/styles/components/ChartLegend.module.css";
 
+/** Partage une légende textuelle dont les marqueurs reprennent les couleurs des séries. */
 export default function ChartLegend({ items }) {
   return (
     <ul className={styles.legend} aria-label="Légende du graphique">

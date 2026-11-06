@@ -6,6 +6,7 @@ const dayLabels = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
 const round = (value) => Math.round(value * 10) / 10;
 const average = (values) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
 
+// Les dates de l'URL sont alignées sur un lundi et plafonnées à la dernière période consultable.
 function readPeriod(searchParams, key, latestStart, weekCount) {
   const requested = searchParams.get(key);
   if (requested !== null && !isIsoDate(requested)) {
@@ -16,6 +17,7 @@ function readPeriod(searchParams, key, latestStart, weekCount) {
   return { ...createPeriod(start, weekCount), latestStart };
 }
 
+/** Sépare les périodes des deux graphiques de la semaine courante utilisée par le bilan. */
 export function getDashboardPeriods(searchParams, today = getToday()) {
   const currentStart = startOfWeek(today);
   return {
@@ -26,6 +28,7 @@ export function getDashboardPeriods(searchParams, today = getToday()) {
   };
 }
 
+/** Un seul appel couvre les deux sélections et le bilan courant, jusqu'à aujourd'hui. */
 export function getActivityRequestRange(periods) {
   const selected = [periods.distance, periods.heart, periods.currentWeek];
   return {
@@ -34,10 +37,12 @@ export function getActivityRequestRange(periods) {
   };
 }
 
+// Les bornes sont inclusives ; le filtre protège aussi les calculs contre des sessions futures.
 function selectSessions(sessions, period, today) {
   return sessions.filter((session) => session.date >= period.start && session.date <= period.end && session.date <= today);
 }
 
+/** Construit les séries et les indicateurs à partir de sessions déjà validées, sans dépendance à React. */
 export function buildDashboardData(sessions, periods) {
   const distanceSessions = selectSessions(sessions, periods.distance, periods.today);
   const distanceWeeks = Array.from({ length: 4 }, (_, index) => {
@@ -56,6 +61,7 @@ export function buildDashboardData(sessions, periods) {
     return {
       label,
       date,
+      // Une journée sans course garde null : zéro BPM serait une mesure inventée.
       min: dailySessions.length ? Math.min(...dailySessions.map((session) => session.heartRate.min)) : null,
       max: dailySessions.length ? Math.max(...dailySessions.map((session) => session.heartRate.max)) : null,
       average: dailySessions.length ? round(average(dailySessions.map((session) => session.heartRate.average))) : null,
@@ -67,6 +73,7 @@ export function buildDashboardData(sessions, periods) {
     periods,
     distance: {
       weeks: distanceWeeks,
+      // La moyenne porte toujours sur quatre semaines, y compris celles sans activité.
       average: round(distanceSessions.reduce((sum, session) => sum + session.distance, 0) / 4),
       hasData: distanceSessions.length > 0,
     },

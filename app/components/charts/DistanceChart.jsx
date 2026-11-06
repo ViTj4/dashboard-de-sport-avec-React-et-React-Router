@@ -8,6 +8,7 @@ import styles from "~/styles/components/Charts.module.css";
 const legend = [{ label: "Km", color: "var(--chart-primary)" }];
 const columns = [{ key: "label", label: "Semaine" }, { key: "start", label: "Début" }, { key: "end", label: "Fin" }, { key: "distance", label: "Distance (km)" }];
 
+/** Affiche les quatre totaux hebdomadaires déjà agrégés, avec une alternative tabulaire accessible. */
 export default function DistanceChart({ weeks, hasData }) {
   return (
     <>
